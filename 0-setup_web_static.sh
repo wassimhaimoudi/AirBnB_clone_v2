@@ -8,7 +8,6 @@ sudo apt-get install -y nginx
 # Create required directories and set permissions
 sudo mkdir -p /data/web_static/releases/test/
 sudo mkdir -p /data/web_static/shared/
-sudo chown -R ubuntu:ubuntu /data/web_static
 
 # Create a fake HTML file for testing
 file_content=$(cat <<EOF
@@ -34,7 +33,8 @@ if [ -h $sym_link ]; then
     sudo rm -f $sym_link
 fi
 sudo ln -s /data/web_static/releases/test/ $sym_link
-
+# Give ownership to ubunti user and group
+sudo chown -h -RL ubuntu:ubuntu /data/web_static
 # Configure Nginx to serve from /data/web_static/current/
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.old
 

@@ -9,6 +9,8 @@ host1 = '18.235.248.15'
 host2 = '100.25.31.89'
 user = 'ubuntu'
 env.hosts = [host1, host2]
+env.user = user
+env.key_filename = '~/.ssh/school'
 
 
 def do_deploy(archive_path):
@@ -25,17 +27,17 @@ def do_deploy(archive_path):
     if os.path.exists(archive_path) is False:
         return False
     try:
-        file_n = archive_path.split("/")[-1]
-        no_ext = file_n.split(".")[0]
+        file_name = archive_path.split("/")[-1]
+        name_no_ext = file_name.split(".")[0]
         path = "/data/web_static/releases/"
         put(archive_path, '/tmp/')
-        run('mkdir -p {}{}/'.format(path, no_ext))
-        run('tar -xzvf /tmp/{} -C {}{}/'.format(file_n, path, no_ext))
-        run('rm /tmp/{}'.format(file_n))
-        run('mv {0}{1}/web_static/* {0}{1}/'.format(path, no_ext))
-        run('rm -rf {}{}/web_static'.format(path, no_ext))
+        run(f'mkdir -p {path}{name_no_ext}/')
+        run(f'tar -xzvf /tmp/{file_name} -C {path}{name_no_ext}/')
+        run(f'rm /tmp/{file_name}')
+        run(f'mv {path}{name_no_ext}/web_static/* {path}{name_no_ext}/')
+        run(f'rm -rf {path}{name_no_ext}/web_static')
         run('rm -rf /data/web_static/current')
-        run('ln -s {}{}/ /data/web_static/current'.format(path, no_ext))
+        run(f'ln -s {path}{name_no_ext}/ /data/web_static/current')
         return True
     except Exception:
         return False

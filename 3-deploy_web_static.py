@@ -8,7 +8,7 @@ import re
 from datetime import datetime
 
 env.user = 'ubuntu'
-env.hosts = ["104.196.155.240", "34.74.146.120"]
+env.hosts = ["18.235.248.15", "100.25.31.89"]
 env.key_filename = "~/.ssh/school"
 
 

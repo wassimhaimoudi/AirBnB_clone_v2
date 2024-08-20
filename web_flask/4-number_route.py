@@ -42,7 +42,7 @@ def python_text(text):
 def number_n(n):
     """Displays n only if n is an integer
     """
-    return f'{n}'
+    return f'{n} is a number'
 
 
 if __name__ == '__main__':
